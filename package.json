@@ -1,0 +1,25 @@
+{
+    "name": "code-connect",
+    "version": "1.0.0",
+    "description": "Workspace com React Vite e Nest.js",
+    "private": true,
+    "scripts": {
+        "web:dev": "pnpm -F web dev",
+        "web:build": "pnpm -F web build",
+        "web:preview": "pnpm -F web preview",
+        "web:install": "pnpm -F web install",
+        "api:start": "pnpm -F api start",
+        "api:start:dev": "pnpm -F api start:dev",
+        "api:start:debug": "pnpm -F api start:debug",
+        "api:start:prod": "pnpm -F api start:prod",
+        "api:build": "pnpm -F api build",
+        "api:install": "pnpm -F api install",
+        "dev": "pnpm -r --parallel dev start:dev",
+        "build": "pnpm -r build",
+        "install": "pnpm install -r",
+        "lint": "pnpm -r lint"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
