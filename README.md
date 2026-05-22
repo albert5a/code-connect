@@ -1,5 +1,7 @@
 # Code Connect Workspace
 
+commit teste
+
 > **Blog pessoal AI Native**
 >
 > Este projeto é um monorepo para um blog pessoal, construído desde o início com princípios AI Native: automação, integração contínua, componentes inteligentes e foco em produtividade assistida por IA.
@@ -80,16 +82,19 @@ pnpm lint
 ## Instalação e Uso
 
 1. **Instalar dependências:**
+
    ```bash
    pnpm install
    ```
 
 2. **Executar desenvolvimento (ambos os apps):**
+
    ```bash
    pnpm dev
    ```
 
    Ou executar apenas um app:
+
    ```bash
    pnpm web:dev
    pnpm api:start:dev
