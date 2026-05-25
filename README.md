@@ -1,7 +1,5 @@
 # Code Connect Workspace
 
-commit teste
-
 > **Blog pessoal AI Native**
 >
 > Este projeto é um monorepo para um blog pessoal, construído desde o início com princípios AI Native: automação, integração contínua, componentes inteligentes e foco em produtividade assistida por IA.
