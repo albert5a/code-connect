@@ -47,4 +47,8 @@ export default function RegisterPage() {
       }}
     />
   );
+<<<<<<< feat/register
 }
+=======
+}
+>>>>>>> feat/register-page
