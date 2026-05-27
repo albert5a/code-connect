@@ -68,7 +68,7 @@ export default function RegisterForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-4 rounded-3xl bg-slate-950/90 p-5 shadow-[0_30px_60px_-20px_rgba(15,23,42,0.75)] ring-1 ring-white/10">
+      <div className="space-y-4 rounded-3xl bg-neutral-bg/90 p-5 shadow-[0_30px_60px_-20px_rgba(15,23,42,0.75)] ring-1 ring-overlay-lighter">
         {fields.map((field) => (
           <FormField
             key={field.id}
@@ -89,7 +89,7 @@ export default function RegisterForm({
           />
         </div>
 
-        {errors && <p className="mt-2 text-sm text-red-400">{errors}</p>}
+        {errors && <p className="mt-2 text-sm text-error">{errors}</p>}
 
         <Button type="submit" className="w-full">
           {submitLabel} →
