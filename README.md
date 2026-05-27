@@ -80,16 +80,19 @@ pnpm lint
 ## Instalação e Uso
 
 1. **Instalar dependências:**
+
    ```bash
    pnpm install
    ```
 
 2. **Executar desenvolvimento (ambos os apps):**
+
    ```bash
    pnpm dev
    ```
 
    Ou executar apenas um app:
+
    ```bash
    pnpm web:dev
    pnpm api:start:dev

@@ -12,17 +12,17 @@ export type AuthField = {
   placeholder: string;
 };
 
-interface AuthFormProps {
+interface RegisterFormProps {
   fields: AuthField[];
   submitLabel: string;
-  onSubmit: (values: Record<string, string>, remember: boolean) => void;
+  onSubmit: (values: Record<string, string>) => void;
 }
 
-export default function AuthForm({
+export default function RegisterForm({
   fields,
   submitLabel,
   onSubmit,
-}: AuthFormProps) {
+}: RegisterFormProps) {
   const initialValues = useMemo(
     () =>
       fields.reduce<Record<string, string>>(
@@ -33,15 +33,37 @@ export default function AuthForm({
   );
 
   const [values, setValues] = useState(initialValues);
-  const [remember, setRemember] = useState(true);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [errors, setErrors] = useState<string | null>(null);
 
   const handleChange = (id: string, value: string) => {
     setValues((current) => ({ ...current, [id]: value }));
   };
 
+  const validate = () => {
+    setErrors(null);
+    const email = values.email || "";
+    const password = values.password || "";
+    const confirm = values.confirmPassword || "";
+
+    if (!values.name) return "Nome é obrigatório.";
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
+      return "E-mail inválido.";
+    if (password.length < 8) return "Senha deve ter pelo menos 8 caracteres.";
+    if (password !== confirm) return "Senhas não batem.";
+    if (!acceptedTerms) return "Aceite os termos para continuar.";
+
+    return null;
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(values, remember);
+    const err = validate();
+    if (err) {
+      setErrors(err);
+      return;
+    }
+    onSubmit(values);
   };
 
   return (
@@ -58,25 +80,23 @@ export default function AuthForm({
             onChange={(value) => handleChange(field.id, value)}
           />
         ))}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+        <div className="flex items-center justify-between">
           <CheckboxField
-            label="Lembrar-me"
-            checked={remember}
-            onChange={() => setRemember((prev) => !prev)}
+            label="Aceito os termos e políticas"
+            checked={acceptedTerms}
+            onChange={() => setAcceptedTerms((p) => !p)}
           />
-          <a
-            href="#"
-            className="text-sm text-neutral-text-muted transition hover:text-primary-light"
-          >
-            Esqueci a senha
-          </a>
         </div>
+
+        {errors && <p className="mt-2 text-sm text-error">{errors}</p>}
+
         <Button type="submit" className="w-full">
           {submitLabel} →
         </Button>
       </div>
 
-      <DividerText text="ou entre com outras contas" />
+      <DividerText text="ou crie com outras contas" />
       <SocialLoginButtons />
     </form>
   );
