@@ -1,25 +1,25 @@
-import AuthLayout from '../components/organisms/AuthLayout'
-import AuthForm from '../components/organisms/AuthForm'
+import AuthLayout from "../components/organisms/AuthLayout";
+import AuthForm from "../components/organisms/AuthForm";
 
 const loginFields = [
   {
-    id: 'username',
-    label: 'Email ou usuário',
-    type: 'text',
-    placeholder: 'usuario123',
+    id: "username",
+    label: "Email ou usuário",
+    type: "text",
+    placeholder: "usuario123",
   },
   {
-    id: 'password',
-    label: 'Senha',
-    type: 'password',
-    placeholder: '••••••••',
+    id: "password",
+    label: "Senha",
+    type: "password",
+    placeholder: "••••••••",
   },
-]
+];
 
 export default function LoginPage() {
   const handleLogin = (values: Record<string, string>, remember: boolean) => {
-    console.log('login values', values, remember)
-  }
+    console.log("login values", values, remember);
+  };
 
   return (
     <AuthLayout
@@ -34,9 +34,9 @@ export default function LoginPage() {
         />
       }
       footerLink={{
-        label: 'Crie seu cadastro!',
-        href: '#',
+        label: "Crie seu cadastro!",
+        href: "/register",
       }}
     />
-  )
+  );
 }
