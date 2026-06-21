@@ -44,8 +44,25 @@
     - Todo componente deve ser criado em sua respectiva pasta conforme o nível atômico.
     - O uso de Tailwind CSS é obrigatório para estilização.
     - Todo componente deve possuir pelo menos um teste cobrindo seu uso essencial (renderização, props principais, interação básica).
+    - Use uma paleta de cores consistente com tokens ou classes utilitárias do Tailwind em toda a UI.
+    - Priorize contraste acessível e consistência de espaçamento entre elementos.
 
-12. **Backend: Princípios REST**
+12. **Design System: Cores e Tamanhos**
+    - Use uma paleta de cores consistente em toda a aplicação.
+      - Cores principais: `primary`, `secondary`, `success`, `danger`, `warning`, `info`, `neutral`.
+      - Cores de texto: `text-primary`, `text-secondary`, `text-muted`.
+      - Cores de fundo: `bg-surface`, `bg-muted`, `bg-overlay`.
+      - Acessibilidade: contraste mínimo de 4.5:1 para textos normais e 3:1 para textos grandes.
+    - Tipografia e tamanhos devem ser escalonados de forma previsível.
+      - Tamanhos de fonte: `xs`, `sm`, `base`, `lg`, `xl`, `2xl`.
+      - Espaçamentos: `xs`, `sm`, `md`, `lg`, `xl`, `2xl`.
+      - Use tokens ou classes utilitárias para margens, paddings e espaçamentos em vez de valores numéricos dispersos.
+    - Componentes devem suportar variações de tamanho quando aplicável.
+      - Botões, inputs e formulários devem ter variantes como `small`, `medium`, `large`.
+      - Ícones e elementos de interface devem manter proporções consistentes.
+    - Evite misturar múltiplos sistemas de design; se já há tokens Tailwind definidos, reutilize-os em todo o projeto.
+
+13. **Backend: Princípios REST**
     - Todas as APIs devem ser aderentes aos princípios REST:
       - Recursos bem definidos e nomeados no plural.
       - Uso correto dos métodos HTTP (GET, POST, PUT, DELETE, PATCH).
@@ -54,7 +71,7 @@
       - HATEOAS quando aplicável.
     - Documentação das rotas e contratos é obrigatória.
 
-13. **Git: Conventional Commits**
+14. **Git: Conventional Commits**
     - Todos os commits devem seguir o padrão [Conventional Commits](https://www.conventionalcommits.org/):
       - Exemplo: `feat: criar componente Button atomico`
       - Exemplo: `fix(api): corrigir status code de erro`
