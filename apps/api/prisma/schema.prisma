@@ -13,8 +13,58 @@ model User {
   name         String
   email        String   @unique
   passwordHash String   @map("password_hash")
+  posts        Post[]
+  comments     Comment[]
+  likes        PostLike[]
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model Post {
+  id           String     @id @default(uuid())
+  title        String
+  excerpt      String
+  content      String
+  thumbnailUrl String?    @map("thumbnail_url")
+  tags         String[]   @default([])
+  authorId     String     @map("author_id")
+  author       User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments     Comment[]
+  likes        PostLike[]
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  @@index([authorId])
+  @@index([createdAt])
+  @@map("posts")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  postId    String   @map("post_id")
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String   @map("author_id")
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([postId])
+  @@index([authorId])
+  @@map("comments")
+}
+
+model PostLike {
+  id        String   @id @default(uuid())
+  postId    String   @map("post_id")
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([postId, userId])
+  @@index([userId])
+  @@map("post_likes")
 }

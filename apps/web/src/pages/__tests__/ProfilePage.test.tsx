@@ -81,4 +81,23 @@ describe("ProfilePage", () => {
     expect(mockedClearAuthToken).toHaveBeenCalled();
     expect(mockNavigate).toHaveBeenCalledWith("/login", { replace: true });
   });
+
+  it("navigates back to the feed", async () => {
+    const user = userEvent.setup();
+    mockedGetAuthToken.mockReturnValue("token-123");
+    mockedGetMe.mockResolvedValueOnce({
+      id: "1",
+      name: "Ana Silva",
+      email: "ana@example.com",
+    });
+
+    render(<ProfilePage />);
+
+    await screen.findByText("Ana Silva");
+    await user.click(
+      screen.getByRole("button", { name: /voltar para o feed/i }),
+    );
+
+    expect(mockNavigate).toHaveBeenCalledWith("/posts");
+  });
 });

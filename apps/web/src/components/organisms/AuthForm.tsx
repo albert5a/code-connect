@@ -80,7 +80,7 @@ export default function AuthForm({
         </div>
         {error && <p className="mt-2 text-sm text-error">{error}</p>}
 
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
+        <Button type="submit" fullWidth disabled={isSubmitting}>
           {isSubmitting ? "Entrando..." : `${submitLabel} →`}
         </Button>
       </div>
