@@ -1,4 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UsersService } from '../../users/users.service';
@@ -9,15 +10,17 @@ export type JwtValidated = { id: string; email: string; name: string };
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private readonly usersService: UsersService) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  constructor(
+    private readonly usersService: UsersService,
+    configService: ConfigService,
+  ) {
     super({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken() as (
         req: unknown,
       ) => string | null,
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET ?? 'default_jwt_secret',
+      secretOrKey:
+        configService.get<string>('JWT_SECRET') ?? 'default_jwt_secret',
     });
   }
 
