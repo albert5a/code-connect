@@ -5,6 +5,16 @@ import { OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const allowedOrigins = [
+    process.env.WEB_ORIGIN,
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+  ].filter((origin): origin is string => Boolean(origin));
+
+  app.enableCors({
+    origin: allowedOrigins,
+    credentials: true,
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -93,7 +103,7 @@ async function bootstrap() {
                   schema: {
                     type: 'object',
                     properties: {
-                      accessToken: { type: 'string' },
+                      access_token: { type: 'string' },
                     },
                   },
                 },

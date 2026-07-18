@@ -1,5 +1,8 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthLayout from "../components/organisms/AuthLayout";
 import RegisterForm from "../components/organisms/RegisterForm";
+import { getAuthErrorMessage, register } from "../services/auth";
 
 const registerFields = [
   {
@@ -24,9 +27,29 @@ const registerFields = [
 ];
 
 export default function RegisterPage() {
-  const handleRegister = (values: Record<string, string>) => {
-    console.log("register values", values);
-    // TODO: chamar API de cadastro
+  const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleRegister = async (values: Record<string, string>) => {
+    setError(null);
+    setIsSubmitting(true);
+
+    try {
+      await register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+      navigate("/login", {
+        replace: true,
+        state: { message: "Cadastro criado com sucesso. Faça login." },
+      });
+    } catch (err) {
+      setError(getAuthErrorMessage(err, "Não foi possível criar sua conta."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -39,6 +62,8 @@ export default function RegisterPage() {
           fields={registerFields}
           submitLabel="Criar conta"
           onSubmit={handleRegister}
+          error={error}
+          isSubmitting={isSubmitting}
         />
       }
       footerLink={{
@@ -47,8 +72,4 @@ export default function RegisterPage() {
       }}
     />
   );
-<<<<<<< feat/register
 }
-=======
-}
->>>>>>> feat/register-page

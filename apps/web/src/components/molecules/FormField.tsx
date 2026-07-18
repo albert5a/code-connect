@@ -18,17 +18,20 @@ export default function FormField({
   onChange,
 }: FormFieldProps) {
   return (
-    <label htmlFor={id} className="space-y-2 text-sm text-neutral-text">
-      <span className="block text-sm font-medium text-neutral-text-muted">
-        {label}
-      </span>
-      <Input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
+    <label
+      htmlFor={id}
+      className="block space-y-2 text-sm font-medium text-neutral-text"
+    >
+      {label}
+      <div>
+        <Input
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        />
+      </div>
     </label>
   );
 }

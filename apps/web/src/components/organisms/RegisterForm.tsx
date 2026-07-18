@@ -15,13 +15,17 @@ export type AuthField = {
 interface RegisterFormProps {
   fields: AuthField[];
   submitLabel: string;
-  onSubmit: (values: Record<string, string>) => void;
+  onSubmit: (values: Record<string, string>) => void | Promise<void>;
+  error?: string | null;
+  isSubmitting?: boolean;
 }
 
 export default function RegisterForm({
   fields,
   submitLabel,
   onSubmit,
+  error,
+  isSubmitting = false,
 }: RegisterFormProps) {
   const initialValues = useMemo(
     () =>
@@ -63,7 +67,7 @@ export default function RegisterForm({
       setErrors(err);
       return;
     }
-    onSubmit(values);
+    void onSubmit(values);
   };
 
   return (
@@ -89,10 +93,12 @@ export default function RegisterForm({
           />
         </div>
 
-        {errors && <p className="mt-2 text-sm text-error">{errors}</p>}
+        {(errors || error) && (
+          <p className="mt-2 text-sm text-error">{errors ?? error}</p>
+        )}
 
-        <Button type="submit" className="w-full">
-          {submitLabel} →
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Criando conta..." : `${submitLabel} →`}
         </Button>
       </div>
 

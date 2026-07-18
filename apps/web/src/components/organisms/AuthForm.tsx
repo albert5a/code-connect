@@ -15,13 +15,20 @@ export type AuthField = {
 interface AuthFormProps {
   fields: AuthField[];
   submitLabel: string;
-  onSubmit: (values: Record<string, string>, remember: boolean) => void;
+  onSubmit: (
+    values: Record<string, string>,
+    remember: boolean,
+  ) => void | Promise<void>;
+  error?: string | null;
+  isSubmitting?: boolean;
 }
 
 export default function AuthForm({
   fields,
   submitLabel,
   onSubmit,
+  error,
+  isSubmitting = false,
 }: AuthFormProps) {
   const initialValues = useMemo(
     () =>
@@ -41,7 +48,7 @@ export default function AuthForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(values, remember);
+    void onSubmit(values, remember);
   };
 
   return (
@@ -71,8 +78,10 @@ export default function AuthForm({
             Esqueci a senha
           </a>
         </div>
-        <Button type="submit" className="w-full">
-          {submitLabel} →
+        {error && <p className="mt-2 text-sm text-error">{error}</p>}
+
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Entrando..." : `${submitLabel} →`}
         </Button>
       </div>
 
