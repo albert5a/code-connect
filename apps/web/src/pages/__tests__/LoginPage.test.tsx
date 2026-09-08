@@ -25,7 +25,7 @@ describe("LoginPage", () => {
     mockLocationState = null;
   });
 
-  it("logs in and navigates to profile", async () => {
+  it("logs in and navigates to feed", async () => {
     const user = userEvent.setup();
     mockedLogin.mockResolvedValueOnce({ access_token: "token-123" });
 
@@ -40,7 +40,7 @@ describe("LoginPage", () => {
         { email: "ana@example.com", password: "password123" },
         true,
       );
-      expect(mockNavigate).toHaveBeenCalledWith("/profile", { replace: true });
+      expect(mockNavigate).toHaveBeenCalledWith("/posts", { replace: true });
     });
   });
 

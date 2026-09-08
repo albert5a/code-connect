@@ -46,7 +46,7 @@ export default function LoginPage() {
         },
         remember,
       );
-      navigate("/profile", { replace: true });
+      navigate("/posts", { replace: true });
     } catch (err) {
       setError(getAuthErrorMessage(err, "Não foi possível fazer login."));
     } finally {

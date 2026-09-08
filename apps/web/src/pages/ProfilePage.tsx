@@ -54,6 +54,10 @@ export default function ProfilePage() {
     navigate("/login", { replace: true });
   };
 
+  const handleBackToFeed = () => {
+    navigate("/posts");
+  };
+
   return (
     <main className="min-h-screen bg-neutral-bg px-4 py-10 text-neutral-text sm:px-6 sm:py-14">
       <section className="mx-auto flex w-full max-w-3xl flex-col gap-8 rounded-[32px] bg-neutral-bg-alt/95 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.65)] ring-1 ring-overlay-lighter sm:p-10">
@@ -66,9 +70,19 @@ export default function ProfilePage() {
               CodeConnect
             </h1>
           </div>
-          <Button type="button" onClick={handleLogout}>
-            Sair
-          </Button>
+          <div className="flex flex-wrap gap-3">
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={handleBackToFeed}
+            >
+              Voltar para o feed
+            </Button>
+            <Button type="button" size="sm" onClick={handleLogout}>
+              Sair
+            </Button>
+          </div>
         </div>
 
         {isLoading && (
